@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react'
 
-import { Wrapper } from "./Box.styled";
+import { Wrapper } from './Box.styled'
 
 export const Box = ({ children, ...rest }) => {
-  return <Wrapper {...rest}>{children}</Wrapper>;
-};
+  return <Wrapper {...rest}>{children}</Wrapper>
+}

@@ -1,35 +1,35 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const Wrapper = styled.div`
   // *Destructures* the received props from rest into the a variable that matches the name. No need for props.display
-  display: ${({ display }) => (display ? display : "Flex")};
+  display: ${({ display }) => (display || 'Flex')};
 
-  align-items: ${({ alignItems }) => (alignItems ? alignItems : "initial")};
+  align-items: ${({ alignItems }) => (alignItems || 'initial')};
 
   justify-content: ${({ justifyContent }) =>
-    justifyContent ? justifyContent : "start"};
+    justifyContent || 'start'};
 
   flex-direction: ${({ flexDirection }) =>
-    flexDirection ? flexDirection : "row"};
+    flexDirection || 'row'};
 
-  width: ${({ width }) => (width ? width : "initial")};
+  width: ${({ width }) => (width || 'initial')};
 
-  height: ${({ height }) => (height ? height : "initial")};
+  height: ${({ height }) => (height || 'initial')};
 
-  max-width: ${({ maxWidth }) => (maxWidth ? maxWidth : "initial")};
+  max-width: ${({ maxWidth }) => (maxWidth || 'initial')};
 
-  max-height: ${({ maxHeight }) => (maxHeight ? maxHeight : "initial")};
+  max-height: ${({ maxHeight }) => (maxHeight || 'initial')};
 
-  border: ${({ border }) => (border ? border : "initial")};
+  border: ${({ border }) => (border || 'initial')};
 
-  margin: ${({ margin }) => (margin ? margin : "initial")};
+  margin: ${({ margin }) => (margin || 'initial')};
 
-  font-size: ${({ fontSize }) => (fontSize ? fontSize : "inherit")};
+  font-size: ${({ fontSize }) => (fontSize || 'inherit')};
 
-  color: ${({ color }) => (color ? color : "inherit")};
+  color: ${({ color }) => (color || 'inherit')};
 
-  line-height: ${({ lineHeight }) => (lineHeight ? lineHeight : "initial")};
+  line-height: ${({ lineHeight }) => (lineHeight || 'initial')};
 
   background-color: ${({ backgroundColor }) =>
-    backgroundColor ? backgroundColor : "initial"};
-`;
+    backgroundColor || 'initial'};
+`

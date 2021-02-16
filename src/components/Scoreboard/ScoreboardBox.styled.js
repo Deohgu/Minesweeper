@@ -1,6 +1,6 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
-import { Box } from "../Box";
+import { Box } from '../Box'
 
 export const ScoreboardBox = styled(Box)`
   justify-content: space-between;
@@ -15,7 +15,7 @@ export const ScoreboardBox = styled(Box)`
   border: inset 6px hsl(0deg 0% 92%);
   margin: calc(85% * 0.03) calc(100% * 0.03) 0 calc(100% * 0.03); // to be equal to the board
   background-color: hsl(0, 0%, 75%);
-`;
+`
 
 export const EmoteButton = styled.button`
   box-sizing: border-box;
@@ -30,4 +30,4 @@ export const EmoteButton = styled.button`
   &:active {
     border: inset 4px hsl(0 0% 92%);
   }
-`;
+`

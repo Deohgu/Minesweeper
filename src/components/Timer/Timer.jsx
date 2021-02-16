@@ -1,18 +1,18 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from 'react'
 
-import { TimerBox, Counter } from "../Timer/Timer.styled";
+import { TimerBox, Counter } from '../Timer/Timer.styled'
 
-import counter_0 from "../../assets/counter_0.png";
-import counter_1 from "../../assets/counter_1.png";
-import counter_2 from "../../assets/counter_2.png";
-import counter_3 from "../../assets/counter_3.png";
-import counter_4 from "../../assets/counter_4.png";
-import counter_5 from "../../assets/counter_5.png";
-import counter_6 from "../../assets/counter_6.png";
-import counter_7 from "../../assets/counter_7.png";
-import counter_8 from "../../assets/counter_8.png";
-import counter_9 from "../../assets/counter_9.png";
-import counter_null from "../../assets/counter_null.png";
+import counter_0 from '../../assets/counter_0.png'
+import counter_1 from '../../assets/counter_1.png'
+import counter_2 from '../../assets/counter_2.png'
+import counter_3 from '../../assets/counter_3.png'
+import counter_4 from '../../assets/counter_4.png'
+import counter_5 from '../../assets/counter_5.png'
+import counter_6 from '../../assets/counter_6.png'
+import counter_7 from '../../assets/counter_7.png'
+import counter_8 from '../../assets/counter_8.png'
+import counter_9 from '../../assets/counter_9.png'
+import counter_null from '../../assets/counter_null.png'
 
 const importedImage = {
   counter_0,
@@ -25,39 +25,39 @@ const importedImage = {
   counter_7,
   counter_8,
   counter_9,
-  counter_null,
-};
+  counter_null
+}
 
 export const Timer = (props) => {
-  const [timerSeconds, setTimerSeconds] = useState("000.00");
+  const [timerSeconds, setTimerSeconds] = useState('000.00')
 
-  const counterRef = useRef(null);
+  const counterRef = useRef(null)
 
   useEffect(() => {
-    if (props.gameStatus === "running") {
+    if (props.gameStatus === 'running') {
       // game started
-      startTimer();
-    } else if (props.gameStatus === "won" || props.gameStatus === "lost") {
+      startTimer()
+    } else if (props.gameStatus === 'won' || props.gameStatus === 'lost') {
       // Game Won or Lost
-      clearInterval(counterRef.current); // stops the timer
+      clearInterval(counterRef.current) // stops the timer
     } else {
       // game waiting
-      clearInterval(counterRef.current);
-      setTimerSeconds("000.00"); // resets timer to 0
+      clearInterval(counterRef.current)
+      setTimerSeconds('000.00') // resets timer to 0
     }
-  }, [props.gameStatus]);
+  }, [props.gameStatus])
 
   const startTimer = () => {
     counterRef.current = setInterval(() => {
       setTimerSeconds((timerSeconds) =>
         timerSeconds <= 9.99
-          ? "00" + (Number(timerSeconds) + 0.01).toFixed(2) // .toFixed deals with floating numbers
+          ? '00' + (Number(timerSeconds) + 0.01).toFixed(2) // .toFixed deals with floating numbers
           : timerSeconds <= 99.99
-          ? "0" + (Number(timerSeconds) + 0.01).toFixed(2)
-          : (Number(timerSeconds) + Number("000.01")).toFixed(2)
-      );
-    }, 10);
-  };
+            ? '0' + (Number(timerSeconds) + 0.01).toFixed(2)
+            : (Number(timerSeconds) + Number('000.01')).toFixed(2)
+      )
+    }, 10)
+  }
 
   return (
     <TimerBox>
@@ -76,7 +76,7 @@ export const Timer = (props) => {
       {/* <div style={{ width: "15px" }} /> */}
       <Counter
         src={counter_null} // skips the dot - will fix later
-        alt={"-"}
+        alt='-'
       />
       <Counter
         src={importedImage[`counter_${timerSeconds.charAt(4)}`]} // skips the dot - will fix later
@@ -87,5 +87,5 @@ export const Timer = (props) => {
         alt={timerSeconds.charAt(5)}
       />
     </TimerBox>
-  );
-};
+  )
+}

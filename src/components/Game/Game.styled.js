@@ -1,6 +1,6 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
-import { Box } from "../Box";
+import { Box } from '../Box'
 
 export const GameBox = styled(Box)`
   flex-direction: column;
@@ -13,4 +13,4 @@ export const GameBox = styled(Box)`
   ); // plus 15% in height of the total width for the scoreboard
   border: 8px outset hsl(0deg 0% 92%);
   background-color: hsl(0deg 0% 74%);
-`;
+`

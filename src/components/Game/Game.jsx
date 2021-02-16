@@ -1,87 +1,87 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react'
 
-import { Scoreboard } from "../Scoreboard/Scoreboard";
+import { Scoreboard } from '../Scoreboard/Scoreboard'
 
-import { Board } from "../Board/Board";
+import { Board } from '../Board/Board'
 
-import { GameBox } from "./Game.styled";
+import { GameBox } from './Game.styled'
 
 export const Game = () => {
-  const [gridWidth] = useState(10);
-  const [size] = useState(100);
-  const [bombs] = useState(20);
-  const [cellArray, setCellArray] = useState([]);
-  const [flaggedAmount, setFlaggedAmount] = useState(bombs);
+  const [gridWidth] = useState(10)
+  const [size] = useState(100)
+  const [bombs] = useState(20)
+  const [cellArray, setCellArray] = useState([])
+  const [flaggedAmount, setFlaggedAmount] = useState(bombs)
 
-  const [gameStatus, setGameStatus] = useState("waiting"); // Won, lost, waiting, running.
+  const [gameStatus, setGameStatus] = useState('waiting') // Won, lost, waiting, running.
 
-  ///////////////////////// Creator of grid & Bomb Populator
+  /// ////////////////////// Creator of grid & Bomb Populator
   // If status of the game changes to "waiting" -> generate a new Cell array.
   // Runs at the start and at each reset button press.
   useEffect(() => {
-    if (gameStatus === "waiting") {
-      setFlaggedAmount(bombs);
-      const newCellArray = [];
+    if (gameStatus === 'waiting') {
+      setFlaggedAmount(bombs)
+      const newCellArray = []
       for (let i = 0; i < size - bombs; i++) {
         newCellArray.push({
           checked: false,
           advancedChecked: false,
-          flagged: false,
-        });
+          flagged: false
+        })
       }
       for (let j = 0; j < bombs; j++) {
         newCellArray.push({
-          value: "bomb",
+          value: 'bomb',
           checked: false,
           advancedChecked: false,
-          flagged: false,
-        });
+          flagged: false
+        })
       }
-      setCellArray(newCellArray.sort((a, b) => Math.random() - 0.5));
+      setCellArray(newCellArray.sort((a, b) => Math.random() - 0.5))
     }
-  }, [gameStatus, bombs, size]);
+  }, [gameStatus, bombs, size])
 
   // Places flags on right click when the game is considered to be running.
   const flagHandler = (e, index) => {
-    e.preventDefault();
-    if (gameStatus === "running") {
-      let cellArrayCopy = [...cellArray];
+    e.preventDefault()
+    if (gameStatus === 'running') {
+      const cellArrayCopy = [...cellArray]
       if (cellArrayCopy[index].advancedChecked === false) {
         if (cellArrayCopy[index].flagged === false) {
-          cellArrayCopy[index].flagged = true;
-          setFlaggedAmount(flaggedAmount - 1);
+          cellArrayCopy[index].flagged = true
+          setFlaggedAmount(flaggedAmount - 1)
         } else {
-          cellArrayCopy[index].flagged = false;
-          setFlaggedAmount(flaggedAmount + 1);
+          cellArrayCopy[index].flagged = false
+          setFlaggedAmount(flaggedAmount + 1)
         }
       }
-      setCellArray(cellArrayCopy);
+      setCellArray(cellArrayCopy)
     }
-  };
+  }
 
   const statusHandler = (status, grid) => {
-    status !== gameStatus && setGameStatus(status);
+    status !== gameStatus && setGameStatus(status)
 
     if (grid) {
-      grid !== cellArray && setCellArray(grid);
+      grid !== cellArray && setCellArray(grid)
       // Algorithm To be improved
-      let advCheckedAmount = 0;
+      let advCheckedAmount = 0
       grid.forEach((curr) => {
         if (curr.advancedChecked) {
-          advCheckedAmount++;
+          advCheckedAmount++
         }
-      });
+      })
 
       if (advCheckedAmount === size - bombs) {
-        setGameStatus("won");
-        const cellArrayCopy = [...grid];
+        setGameStatus('won')
+        const cellArrayCopy = [...grid]
         cellArrayCopy.forEach((curr) => {
-          curr.advancedChecked = true; // makes everything visible
-        });
-        setCellArray(cellArrayCopy);
+          curr.advancedChecked = true // makes everything visible
+        })
+        setCellArray(cellArrayCopy)
       }
     }
-  };
+  }
 
   return (
     <GameBox>
@@ -99,5 +99,5 @@ export const Game = () => {
         flagHandler={flagHandler}
       />
     </GameBox>
-  );
-};
+  )
+}

@@ -1,10 +1,10 @@
-import React from "react";
+import React from 'react'
 
-import { BoardStyled } from "./Board.styled";
+import { BoardStyled } from './Board.styled'
 
-import { Cell } from "../Cell/Cell";
+import { Cell } from '../Cell/Cell'
 
-import { cellPressed } from "../../utils/BoardUtils/cellPressed";
+import { cellPressed } from '../../utils/BoardUtils/cellPressed'
 
 export const Board = ({
   gridWidth,
@@ -12,10 +12,10 @@ export const Board = ({
   statusHandler,
   cellArray,
   size,
-  flagHandler,
+  flagHandler
 }) => {
   return (
-    <BoardStyled draggable="false">
+    <BoardStyled draggable='false'>
       {cellArray.map((curr, index) => {
         return (
           <Cell
@@ -27,8 +27,7 @@ export const Board = ({
                 statusHandler,
                 gridWidth,
                 size
-              )
-            }
+              )}
             onContextMenu={(e) => flagHandler(e, index)}
             gridWidth={gridWidth}
             pressed={curr.advancedChecked}
@@ -37,8 +36,8 @@ export const Board = ({
             value={cellArray[index].value}
             key={index}
           />
-        );
+        )
       })}
     </BoardStyled>
-  );
-};
+  )
+}

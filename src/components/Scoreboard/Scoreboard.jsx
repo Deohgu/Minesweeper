@@ -1,12 +1,12 @@
-import React from "react";
+import React from 'react'
 
-import { BombsDisplay } from "../BombsDisplay/BombsDisplay";
+import { BombsDisplay } from '../BombsDisplay/BombsDisplay'
 
-import { Timer } from "../Timer/Timer";
+import { Timer } from '../Timer/Timer'
 
-import { ScoreboardBox, EmoteButton } from "./ScoreboardBox.styled";
+import { ScoreboardBox, EmoteButton } from './ScoreboardBox.styled'
 
-import face_waiting from "../../assets/face_waiting.png";
+import face_waiting from '../../assets/face_waiting.png'
 
 export const Scoreboard = ({ statusHandler, gameStatus, flaggedAmount }) => {
   return (
@@ -16,14 +16,14 @@ export const Scoreboard = ({ statusHandler, gameStatus, flaggedAmount }) => {
         {/* Reset Icon */}
         <img
           src={face_waiting}
-          alt={"reset"}
+          alt='reset'
           onClick={() => {
-            statusHandler("waiting");
+            statusHandler('waiting')
           }}
-          style={{ height: "100%", imageRendering: "pixelated" }}
+          style={{ height: '100%', imageRendering: 'pixelated' }}
         />
       </EmoteButton>
       <Timer gameStatus={gameStatus} />
     </ScoreboardBox>
-  );
-};
+  )
+}

@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { Box } from "../Box";
+import styled from 'styled-components'
+import { Box } from '../Box'
 
 export const BoardStyled = styled(Box)`
   justify-content: center;
@@ -10,4 +10,4 @@ export const BoardStyled = styled(Box)`
   margin: calc(85% * 0.03) calc(100% * 0.03);
   border: inset 6px hsl(0deg 0% 92%);
   background-color: lightgray;
-`;
+`
