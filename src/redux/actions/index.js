@@ -1,5 +1,5 @@
-import { ADD_ARTICLE } from '../constants/action-types'
+import { INCREMENT } from '../constants/action-types'
 
-export const addArticle = (payload) => {
-  return { type: ADD_ARTICLE, payload }
+export const increment = (payload) => {
+  return { type: INCREMENT, payload }
 }

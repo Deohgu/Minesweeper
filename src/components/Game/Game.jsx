@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react'
 
+import { connect } from 'react-redux'
+import { increment } from '../../redux/actions/index'
+
 import { Scoreboard } from '../Scoreboard/Scoreboard'
 
 import { Board } from '../Board/Board'
@@ -83,8 +86,34 @@ export const Game = () => {
     }
   }
 
+  // Receives data from Store and passes as a prop to the component attached
+  const mapStateToProps = (state) => {
+    return (
+      {
+        number: state.number
+      }
+    )
+  }
+
+  // Receives the action function as passes as a prop to the component attached
+  const mapDispatchToProps = {
+    incrementTesting: increment
+  }
+
+  // component to render
+  const ButtonTest = ({ number, incrementTesting }) => {
+    return (
+      <button onClick={() => incrementTesting(2)}>
+        Number in state: {number}
+      </button>
+    )
+  }
+
+  const ButtonConnect = connect(mapStateToProps, mapDispatchToProps)(ButtonTest)
+
   return (
     <GameBox>
+      <ButtonConnect />
       <Scoreboard
         statusHandler={statusHandler}
         gameStatus={gameStatus}
