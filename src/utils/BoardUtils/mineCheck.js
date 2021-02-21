@@ -1,5 +1,11 @@
 export const mineCheck = (index, original, cellArray, gridWidth, size) => {
-  const cellArrayCopy = [...cellArray]
+  // Deep clone
+  const cellArrayCopy = cellArray.map(curr => ({ ...Object.assign(curr) }))
+  console.log(cellArrayCopy)
+
+
+  console.count('mineCheck')
+
 
   // Array is displayed as a matrix. So it checks the ones near the index starting from above and continues clockwise.
   // index - matrix width = the index above, index - matrix width + 1 = top right index, etc

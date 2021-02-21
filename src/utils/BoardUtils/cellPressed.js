@@ -16,7 +16,10 @@ export const cellPressed = (
   ) {
     if (cellArray[index].value === 'bomb') {
       // Sets all the cells that are bombs to "advancedChecked" meaning checked, meaning to be visible.
-      const cellArrayCopy = [...cellArray]
+
+      // Deep clone
+      const cellArrayCopy = cellArray.map(curr => ({ ...Object.assign(curr) }))
+
       cellArrayCopy.forEach((curr) => {
         if (curr.value === 'bomb') {
           curr.advancedChecked = true
