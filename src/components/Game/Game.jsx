@@ -1,29 +1,32 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 
-import { connect } from 'react-redux'
-import { increment } from '../../redux/actions/index'
+import { useSelector, useDispatch } from 'react-redux'
+import { updateCellArray, resetFlaggedAmount, incrementFlaggedAmount, decrementFlaggedAmount, updateStatus } from './gameSlice'
 
 import { Scoreboard } from '../Scoreboard/Scoreboard'
-
 import { Board } from '../Board/Board'
 
 import { GameBox } from './Game.styled'
 
 export const Game = () => {
-  const [gridWidth] = useState(10)
-  const [size] = useState(100)
-  const [bombs] = useState(20)
-  const [cellArray, setCellArray] = useState([])
-  const [flaggedAmount, setFlaggedAmount] = useState(bombs)
+  // Fetches data from redux store with redux toolkit
+  const cellArray = useSelector(state => state.game.cellArray)
+  const size = useSelector(state => state.game.size)
+  const gridWidth = useSelector(state => state.game.gridWidth)
+  const bombs = useSelector(state => state.game.bombs)
+  const gameStatus = useSelector(state => state.game.gameStatus)
+  const flaggedAmount = useSelector(state => state.game.flaggedAmount)
 
-  const [gameStatus, setGameStatus] = useState('waiting') // Won, lost, waiting, running.
+  // Defining dispatch from redux toolkit
+  const dispatch = useDispatch()
 
   /// ////////////////////// Creator of grid & Bomb Populator
   // If status of the game changes to "waiting" -> generate a new Cell array.
   // Runs at the start and at each reset button press.
   useEffect(() => {
     if (gameStatus === 'waiting') {
-      setFlaggedAmount(bombs)
+      // setFlaggedAmount(bombs)
+      dispatch(resetFlaggedAmount())
       const newCellArray = []
       for (let i = 0; i < size - bombs; i++) {
         newCellArray.push({
@@ -40,7 +43,8 @@ export const Game = () => {
           flagged: false
         })
       }
-      setCellArray(newCellArray.sort((a, b) => Math.random() - 0.5))
+      // setCellArray(newCellArray.sort((a, b) => Math.random() - 0.5))
+      dispatch(updateCellArray(newCellArray.sort((a, b) => Math.random() - 0.5)))
     }
   }, [gameStatus, bombs, size])
 
@@ -52,21 +56,24 @@ export const Game = () => {
       if (cellArrayCopy[index].advancedChecked === false) {
         if (cellArrayCopy[index].flagged === false) {
           cellArrayCopy[index].flagged = true
-          setFlaggedAmount(flaggedAmount - 1)
+          dispatch(decrementFlaggedAmount)
         } else {
           cellArrayCopy[index].flagged = false
-          setFlaggedAmount(flaggedAmount + 1)
+          dispatch(incrementFlaggedAmount)
         }
       }
-      setCellArray(cellArrayCopy)
+      // setCellArray(cellArrayCopy)
+      dispatch(updateCellArray(cellArrayCopy))
     }
   }
 
   const statusHandler = (status, grid) => {
-    status !== gameStatus && setGameStatus(status)
+    // status !== gameStatus && setGameStatus(status)
+    dispatch(updateStatus(status))
 
     if (grid) {
-      grid !== cellArray && setCellArray(grid)
+      // grid !== cellArray && setCellArray(grid)
+      dispatch(updateCellArray(grid))
       // Algorithm To be improved
       let advCheckedAmount = 0
       grid.forEach((curr) => {
@@ -76,48 +83,32 @@ export const Game = () => {
       })
 
       if (advCheckedAmount === size - bombs) {
-        setGameStatus('won')
+        // setGameStatus('won')
+        dispatch(updateStatus('won'))
         const cellArrayCopy = [...grid]
         cellArrayCopy.forEach((curr) => {
           curr.advancedChecked = true // makes everything visible
         })
-        setCellArray(cellArrayCopy)
+        // setCellArray(cellArrayCopy)
+        dispatch(updateCellArray(cellArrayCopy))
       }
     }
   }
 
-  // Receives data from Store and passes as a prop to the component attached
-  const mapStateToProps = (state) => {
-    return (
-      {
-        number: state.number
-      }
-    )
-  }
-
-  // Receives the action function as passes as a prop to the component attached
-  const mapDispatchToProps = {
-    incrementTesting: increment
-  }
-
   // component to render
-  const ButtonTest = ({ number, incrementTesting }) => {
+  const ButtonTest = () => {
     return (
-      <button onClick={() => incrementTesting(2)}>
-        Number in state: {number}
+      <button onClick={() => dispatch(incrementFlaggedAmount())}>
+        FlaggedAmount in state: {flaggedAmount}
       </button>
     )
   }
 
-  const ButtonConnect = connect(mapStateToProps, mapDispatchToProps)(ButtonTest)
-
   return (
     <GameBox>
-      <ButtonConnect />
+      <ButtonTest />
       <Scoreboard
         statusHandler={statusHandler}
-        gameStatus={gameStatus}
-        flaggedAmount={flaggedAmount}
       />
       <Board
         gridWidth={gridWidth}

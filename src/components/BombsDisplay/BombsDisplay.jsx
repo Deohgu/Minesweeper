@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { useSelector } from 'react-redux'
+
 import { BombsBox, BombsImg } from './BombsDisplay.styled'
 
 import counter_0 from '../../assets/counter_0.png'
@@ -36,7 +38,9 @@ const stringFlaggedAmount = (flaggedAmount) => {
   else return stringfied
 }
 
-export const BombsDisplay = ({ flaggedAmount }) => {
+export const BombsDisplay = () => {
+  const flaggedAmount = useSelector(state => state.game.flaggedAmount)
+
   return (
     <BombsBox>
       <BombsImg
