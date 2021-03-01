@@ -3,9 +3,9 @@ import { createSlice } from '@reduxjs/toolkit'
 export const gameSlice = createSlice({
   name: 'game',
   initialState: {
-    gridWidth: 5,
-    size: 25,
-    bombs: 2,
+    gridWidth: 10,
+    size: 100,
+    bombs: 20,
     cellArray: [],
     get flaggedAmount () { return this.bombs },
     gameStatus: 'waiting'
