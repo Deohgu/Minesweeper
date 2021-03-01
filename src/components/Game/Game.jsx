@@ -46,7 +46,7 @@ export const Game = () => {
       // setCellArray(newCellArray.sort((a, b) => Math.random() - 0.5))
       dispatch(updateCellArray(newCellArray.sort((a, b) => Math.random() - 0.5)))
     }
-  }, [gameStatus, bombs, size])
+  }, [gameStatus, bombs, size, dispatch])
 
   // Places flags on right click when the game is considered to be running.
   const flagHandler = (e, index) => {
